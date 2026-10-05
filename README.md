@@ -1,5 +1,4 @@
 <img width="2264" height="610" alt="Image" src="https://github.com/user-attachments/assets/64da9137-caea-4cfc-aa2d-3a4085e4d82b" />
-<img src="./.github/screenshots/header-dark.png#gh-dark-mode-only" width="100%" alt="AegisDesk header (dark mode)"/>
 
 <div align="center">
 
