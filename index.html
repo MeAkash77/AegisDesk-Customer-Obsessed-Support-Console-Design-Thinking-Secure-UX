@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#05070b">
+<meta name="description" content="AegisDesk — Customer-Obsessed Support Console | Design Thinking & Secure UX">
+<title>AegisDesk — Customer-Obsessed Support Console</title>
+<style>
+:root{
+  --bg:#05070b;--bg2:#080d15;--panel:rgba(13,18,28,.72);--panel2:rgba(17,24,38,.9);
+  --line:rgba(154,180,210,.14);--text:#edf5ff;--muted:#8e9caf;--cyan:#55e8ff;
+  --cyan2:#9af6ff;--amber:#ffc96b;--green:#6ff3ad;--red:#ff6f91;
+  --shadow:0 30px 90px rgba(0,0,0,.45);--radius:24px;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at 50% -10%,#102235 0,#05070b 42%,#030508 100%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.16;background-image:linear-gradient(rgba(120,170,200,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(120,170,200,.08) 1px,transparent 1px);background-size:54px 54px;mask-image:linear-gradient(to bottom,#000,transparent 75%);z-index:-2}
+a{color:inherit;text-decoration:none}button{font:inherit}
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;background:rgba(4,7,11,.58);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.logo{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:.1em;font-size:13px}.logo-mark{width:28px;height:28px;border:1px solid rgba(85,232,255,.7);border-radius:9px;position:relative;box-shadow:0 0 28px rgba(85,232,255,.2)}.logo-mark:before,.logo-mark:after{content:"";position:absolute;border-radius:50%;border:1px solid var(--cyan);inset:6px}.logo-mark:after{inset:10px;background:var(--cyan);box-shadow:0 0 15px var(--cyan)}
+.navlinks{display:flex;gap:24px;color:#9aa8b9;font-size:12px}.navlinks a:hover{color:#fff}.nav-actions{display:flex;gap:9px}.btn{border:1px solid var(--line);background:rgba(255,255,255,.035);color:#eaf7ff;padding:11px 15px;border-radius:12px;cursor:pointer;transition:.25s;white-space:nowrap}.btn:hover{transform:translateY(-2px);border-color:rgba(85,232,255,.5);box-shadow:0 10px 35px rgba(85,232,255,.1)}.btn.primary{background:linear-gradient(135deg,#b9fbff,#46d7f2);color:#031015;border:0;font-weight:800}.btn.small{padding:8px 11px;font-size:12px}
+
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:5vw;padding:130px 7vw 70px;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:680px;height:680px;border-radius:50%;right:-260px;top:120px;background:radial-gradient(circle,rgba(85,232,255,.14),transparent 68%);filter:blur(10px);pointer-events:none}
+.eyebrow{display:flex;align-items:center;gap:9px;color:var(--cyan2);font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}.dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 14px var(--green);animation:pulse 1.6s infinite}
+h1{font-size:clamp(54px,7vw,104px);line-height:.9;letter-spacing:-.07em;margin:20px 0 25px;max-width:800px}h1 span{background:linear-gradient(110deg,#fff 20%,#91efff 52%,#8c9dff 95%);-webkit-background-clip:text;background-clip:text;color:transparent}.lead{font-size:18px;line-height:1.7;color:#a9b5c4;max-width:620px}.hero-buttons{display:flex;gap:12px;margin:30px 0}.hero-metrics{display:flex;gap:25px;margin-top:35px;flex-wrap:wrap}.hero-metrics strong{font-size:23px}.hero-metrics small{display:block;color:#718094;margin-top:3px}
+.scene{height:570px;position:relative;perspective:1200px;display:grid;place-items:center}.orbit{position:absolute;border:1px solid rgba(85,232,255,.13);border-radius:50%;transform-style:preserve-3d;animation:spin 16s linear infinite}.o1{width:510px;height:510px;transform:rotateX(67deg)}.o2{width:390px;height:390px;transform:rotateY(65deg);animation-duration:12s;animation-direction:reverse}.o3{width:290px;height:290px;transform:rotateX(70deg) rotateY(15deg);animation-duration:8s}.orb{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 22px 5px rgba(85,232,255,.6);top:50%;left:-4px}
+.console{width:min(560px,90%);height:390px;border:1px solid rgba(153,216,245,.25);background:linear-gradient(135deg,rgba(22,31,47,.9),rgba(6,10,17,.87));border-radius:28px;box-shadow:0 60px 120px rgba(0,0,0,.65),0 0 80px rgba(85,232,255,.09);transform:rotateX(8deg) rotateY(-10deg) rotateZ(1deg);transform-style:preserve-3d;animation:float 5s ease-in-out infinite;overflow:hidden;position:relative;z-index:3}.console:before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,rgba(255,255,255,.08),transparent 20%,transparent 70%,rgba(85,232,255,.06));pointer-events:none}
+.topbar{height:48px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 16px;font-size:10px;color:#8190a4}.win{display:flex;gap:5px}.win i{width:7px;height:7px;border-radius:50%;background:#465267}
+.console-body{display:grid;grid-template-columns:135px 1fr 145px;height:342px}.side{border-right:1px solid var(--line);padding:15px}.side div{padding:9px;border-radius:9px;color:#718096;font-size:10px;margin-bottom:5px}.side .active{background:rgba(85,232,255,.08);color:#c7f9ff}.conv{padding:15px}.conv-head{display:flex;justify-content:space-between;margin-bottom:12px;font-size:10px;color:#9aa8b8}.ticket{padding:13px;border:1px solid rgba(85,232,255,.17);border-radius:14px;background:rgba(255,255,255,.025);margin-bottom:9px}.ticket b{font-size:11px}.ticket p{font-size:9px;color:#76869b;margin:6px 0;line-height:1.5}.tag{display:inline-block;font-size:8px;padding:4px 7px;border-radius:20px;background:rgba(111,243,173,.1);color:var(--green)}.insight{border-left:1px solid var(--line);padding:14px}.insight h4{font-size:10px;margin:0 0 12px}.score{font-size:27px;font-weight:800}.bar{height:4px;background:#1c2633;border-radius:20px;overflow:hidden;margin:7px 0 15px}.bar i{display:block;height:100%;width:94%;background:linear-gradient(90deg,var(--cyan),#8b9dff);border-radius:20px}.mini{font-size:8px;color:#728095;line-height:1.7}.scan{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);top:0;box-shadow:0 0 20px var(--cyan);animation:scan 4s linear infinite;opacity:.5}
+
+.section{padding:120px 7vw;position:relative}.section-head{max-width:760px;margin-bottom:50px}.kicker{color:var(--cyan);font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase}.section h2{font-size:clamp(40px,5vw,72px);letter-spacing:-.055em;line-height:.95;margin:12px 0 18px}.section p{color:#8f9daf;line-height:1.75}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.metric{padding:25px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,rgba(18,26,39,.8),rgba(7,10,16,.65));position:relative;overflow:hidden}.metric:after{content:"";position:absolute;width:120px;height:120px;border-radius:50%;background:rgba(85,232,255,.06);right:-60px;bottom:-60px}.metric strong{font-size:42px;letter-spacing:-.05em}.metric span{display:block;color:#7f8da0;font-size:11px;text-transform:uppercase;letter-spacing:.1em;margin-top:7px}
+.panel{border:1px solid var(--line);background:linear-gradient(145deg,rgba(15,22,34,.88),rgba(6,9,14,.78));border-radius:28px;box-shadow:var(--shadow);overflow:hidden}.workflow{display:grid;grid-template-columns:1fr 1fr;min-height:500px}.workflow-side{padding:40px;border-right:1px solid var(--line)}.workflow-side h3{font-size:30px;margin:0 0 12px}.step-list{margin-top:30px}.step{display:flex;gap:15px;align-items:center;padding:14px;border-bottom:1px solid rgba(255,255,255,.05);transition:.35s}.step .num{width:30px;height:30px;border:1px solid var(--line);border-radius:9px;display:grid;place-items:center;font-size:10px;color:#718096}.step.active{background:rgba(85,232,255,.05);border-radius:12px}.step.active .num{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 15px rgba(85,232,255,.18)}.step b{font-size:12px}.step small{display:block;color:#6e7d91;margin-top:3px}.workflow-view{position:relative;display:grid;place-items:center;overflow:hidden;background:radial-gradient(circle at center,rgba(85,232,255,.08),transparent 65%)}.node-ring{width:350px;height:350px;border:1px solid rgba(85,232,255,.18);border-radius:50%;position:relative;animation:spin 18s linear infinite}.node{position:absolute;padding:14px 17px;border:1px solid rgba(85,232,255,.25);background:rgba(9,17,27,.9);border-radius:14px;font-size:10px;box-shadow:0 10px 35px rgba(0,0,0,.35)}.node:nth-child(1){top:-25px;left:120px}.node:nth-child(2){right:-35px;top:120px}.node:nth-child(3){bottom:-25px;left:105px}.node:nth-child(4){left:-38px;top:125px}.node-core{position:absolute;inset:125px;background:radial-gradient(circle,#17394a,#081018);border:1px solid rgba(85,232,255,.45);border-radius:50%;display:grid;place-items:center;text-align:center;font-size:10px;box-shadow:0 0 60px rgba(85,232,255,.15);animation:glow 2s infinite alternate}
+
+.demo-wrap{position:relative}.demo-toolbar{display:flex;justify-content:space-between;align-items:center;padding:15px 18px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.02)}.status{display:flex;align-items:center;gap:8px;font-size:10px;color:#7e8c9f}.status .dot{width:6px;height:6px}.demo-app{display:grid;grid-template-columns:200px 1fr 270px;min-height:590px}.demo-sidebar{padding:18px;border-right:1px solid var(--line)}.demo-sidebar h4,.demo-right h4{font-size:10px;text-transform:uppercase;letter-spacing:.15em;color:#6f7e92}.inbox{padding:11px;border-radius:12px;margin:5px 0;color:#7c899b;font-size:11px;display:flex;justify-content:space-between}.inbox.active{background:rgba(85,232,255,.08);color:#d8fbff}.badge{background:#1c4050;color:var(--cyan2);padding:2px 6px;border-radius:10px;font-size:8px}.demo-main{padding:20px}.customer{display:flex;align-items:center;gap:11px}.avatar{width:38px;height:38px;border-radius:13px;background:linear-gradient(135deg,#3d7180,#192a3a);display:grid;place-items:center;font-weight:800}.customer small{color:#738195}.chat{margin-top:22px}.bubble{max-width:72%;padding:14px 16px;border-radius:16px;background:#111a28;border:1px solid var(--line);font-size:12px;line-height:1.6;margin:10px 0}.bubble.me{margin-left:auto;background:rgba(85,232,255,.07);border-color:rgba(85,232,255,.2)}.ai-card{margin-top:15px;border:1px solid rgba(111,243,173,.18);background:rgba(111,243,173,.035);padding:15px;border-radius:16px}.ai-card b{font-size:11px}.ai-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.ai-item{padding:9px;border:1px solid rgba(255,255,255,.05);border-radius:9px}.ai-item small{color:#708095;display:block}.ai-item strong{font-size:11px}.actions{display:flex;gap:8px;margin-top:15px;flex-wrap:wrap}.demo-right{border-left:1px solid var(--line);padding:18px}.risk{padding:14px;border:1px solid var(--line);border-radius:14px;margin:10px 0}.risk strong{font-size:24px}.timeline{border-left:1px dashed #334153;margin:20px 0 0 5px;padding-left:18px}.timeline div{margin:0 0 20px;font-size:10px;color:#77869a;position:relative}.timeline div:before{content:"";position:absolute;width:7px;height:7px;border-radius:50%;background:var(--cyan);left:-22px;top:2px;box-shadow:0 0 12px var(--cyan)}.demo-note{font-size:10px;color:#6f7f93;line-height:1.6;margin-top:18px}
+
+.security{display:grid;grid-template-columns:1fr 1fr;gap:16px}.security-card{min-height:430px;padding:35px;position:relative;overflow:hidden}.shield{width:220px;height:260px;margin:30px auto;position:relative;display:grid;place-items:center;clip-path:polygon(50% 0,88% 14%,100% 53%,78% 85%,50% 100%,22% 85%,0 53%,12% 14%);background:linear-gradient(145deg,rgba(85,232,255,.16),rgba(85,232,255,.02));border:1px solid rgba(85,232,255,.3);filter:drop-shadow(0 0 30px rgba(85,232,255,.18))}.shield:after{content:"AEGIS";font-weight:900;letter-spacing:.2em;color:#baf9ff;font-size:17px}.security-list{display:grid;gap:9px}.sec-row{display:flex;justify-content:space-between;padding:13px;border:1px solid var(--line);border-radius:12px;font-size:10px}.ok{color:var(--green)}.block{color:var(--red)}
+
+.dual{display:grid;grid-template-columns:1fr 1fr;gap:16px}.compare{padding:30px}.compare h3{margin:0 0 22px}.compare .number{font-size:64px;font-weight:900;letter-spacing:-.07em}.compare.after{background:radial-gradient(circle at 100% 0,rgba(85,232,255,.1),transparent 55%)}.flowline{height:8px;background:#18202c;border-radius:20px;margin:18px 0;overflow:hidden}.flowline i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),#9c8dff);border-radius:20px;transition:2s}.active-in .flowline i{width:96%}
+
+.arch{min-height:540px;padding:30px;position:relative;overflow:hidden;background:radial-gradient(circle at center,rgba(85,232,255,.05),transparent 55%)}.arch-canvas{height:450px;position:relative;display:grid;place-items:center}.arch-core{width:160px;height:100px;border:1px solid rgba(85,232,255,.45);border-radius:20px;background:rgba(12,24,34,.9);display:grid;place-items:center;text-align:center;font-weight:800;font-size:12px;box-shadow:0 0 50px rgba(85,232,255,.12);position:absolute;z-index:3}.arch-node{position:absolute;width:130px;padding:14px;text-align:center;border:1px solid var(--line);border-radius:15px;background:rgba(11,16,24,.9);font-size:10px;z-index:3}.arch-node b{display:block;margin-bottom:5px}.arch-node small{color:#718094}.a1{top:30px;left:10%}.a2{top:30px;right:10%}.a3{bottom:35px;left:10%}.a4{bottom:35px;right:10%}.a5{top:44%;left:3%}.a6{top:44%;right:3%}.line{position:absolute;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);transform-origin:left center;z-index:1;opacity:.45}.l1{width:250px;top:160px;left:23%;transform:rotate(28deg)}.l2{width:250px;top:160px;right:23%;transform:rotate(152deg)}.l3{width:250px;bottom:160px;left:23%;transform:rotate(-28deg)}.l4{width:250px;bottom:160px;right:23%;transform:rotate(208deg)}.l5{width:210px;top:50%;left:19%}.l6{width:210px;top:50%;right:19%;transform:rotate(180deg)}
+
+.testing{display:grid;grid-template-columns:1fr 1fr;gap:18px}.testbox{padding:30px}.coverage{width:220px;height:220px;border-radius:50%;margin:15px auto;display:grid;place-items:center;background:conic-gradient(var(--cyan) 0 95%,#17202c 95%);position:relative;box-shadow:0 0 60px rgba(85,232,255,.1)}.coverage:after{content:"";position:absolute;inset:18px;background:#080d14;border-radius:50%}.coverage span{position:relative;z-index:2;font-size:44px;font-weight:900}.test-row{display:flex;justify-content:space-between;padding:12px;border-bottom:1px solid rgba(255,255,255,.05);font-size:11px}.test-row span:last-child{color:var(--green)}
+
+.metrics-live{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.live-card{padding:22px;border:1px solid var(--line);border-radius:18px;background:rgba(10,15,23,.72)}.live-card h4{margin:0;color:#8290a3;font-size:10px;text-transform:uppercase}.live-value{font-size:32px;font-weight:900;margin-top:9px}.spark{height:45px;margin-top:10px;position:relative;overflow:hidden}.spark svg{width:100%;height:100%}
+
+.recruiter{padding:50px;border:1px solid rgba(85,232,255,.18);background:radial-gradient(circle at 100% 0,rgba(85,232,255,.09),transparent 40%),linear-gradient(145deg,rgba(15,25,38,.9),rgba(6,9,14,.85));border-radius:28px}.recruiter-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:25px}.r-item{padding:18px;border:1px solid var(--line);border-radius:15px}.r-item b{font-size:12px}.r-item p{font-size:10px;margin:7px 0 0;color:#718094}
+
+footer{padding:80px 7vw 40px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-end;color:#68778a}.footer-logo{font-size:28px;font-weight:900;letter-spacing:-.05em;color:#dceeff}.footer-note{font-size:11px;margin-top:8px}.footer-right{text-align:right;font-size:10px;line-height:1.7}
+
+.modal{position:fixed;inset:0;z-index:100;background:rgba(1,4,7,.78);backdrop-filter:blur(22px);display:none;align-items:center;justify-content:center;padding:25px}.modal.open{display:flex}.modal-shell{width:min(1400px,96vw);height:min(850px,94vh);border:1px solid rgba(154,200,220,.22);border-radius:28px;background:#070b12;box-shadow:0 60px 160px rgba(0,0,0,.75);overflow:hidden;animation:modalIn .35s ease}.modal-head{height:64px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 20px}.close{width:36px;height:36px;border:1px solid var(--line);background:transparent;color:#fff;border-radius:10px;cursor:pointer}.demo-full{height:calc(100% - 64px);overflow:auto}.toast{position:fixed;right:25px;bottom:25px;z-index:200;padding:14px 18px;background:#101a27;border:1px solid rgba(85,232,255,.3);border-radius:13px;box-shadow:var(--shadow);font-size:11px;transform:translateY(120px);opacity:0;transition:.3s}.toast.show{transform:translateY(0);opacity:1}
+
+.reveal{opacity:0;transform:translateY(35px);transition:opacity .8s ease,transform .8s ease}.reveal.show{opacity:1;transform:none}
+@keyframes pulse{50%{opacity:.35;transform:scale(.7)}}@keyframes spin{to{transform:rotate(360deg)}}@keyframes float{50%{transform:rotateX(6deg) rotateY(-8deg) translateY(-12px)}}@keyframes glow{to{box-shadow:0 0 100px rgba(85,232,255,.32)}}@keyframes scan{to{top:100%}}@keyframes modalIn{from{opacity:0;transform:scale(.97) translateY(20px)}to{opacity:1;transform:none}}
+
+@media(max-width:1050px){.navlinks{display:none}.hero{grid-template-columns:1fr;padding-top:120px}.scene{height:480px}.grid{grid-template-columns:repeat(2,1fr)}.demo-app{grid-template-columns:160px 1fr}.demo-right{display:none}.workflow,.security,.dual,.testing{grid-template-columns:1fr}.recruiter-grid{grid-template-columns:1fr 1fr}.metrics-live{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.nav{padding:0 18px}.nav-actions .btn:first-child{display:none}.hero,.section{padding-left:20px;padding-right:20px}.hero{padding-top:110px}.hero h1{font-size:57px}.lead{font-size:15px}.hero-metrics{gap:18px}.scene{height:380px}.console{transform:scale(.72) rotateX(8deg) rotateY(-10deg)}.orbit{transform:scale(.7) rotateX(67deg)}.grid,.metrics-live,.recruiter-grid{grid-template-columns:1fr}.workflow-side{padding:25px}.workflow-view{min-height:430px}.demo-app{grid-template-columns:1fr}.demo-sidebar{display:none}.section{padding-top:85px;padding-bottom:85px}.section h2{font-size:45px}.arch{padding:10px}.arch-node{transform:scale(.82)}.a1{left:0}.a2{right:0}.a3{left:0}.a4{right:0}.a5{left:-10px}.a6{right:-10px}.modal{padding:8px}.modal-shell{height:96vh;border-radius:18px}.recruiter{padding:25px}footer{display:block}.footer-right{text-align:left;margin-top:30px}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="logo" href="#top"><span class="logo-mark"></span>AEGISDESK</a>
+  <div class="navlinks">
+    <a href="#problem">Problem</a><a href="#workflow">Design</a><a href="#demo">Demo</a><a href="#security">Security</a><a href="#architecture">Architecture</a><a href="#impact">Impact</a>
+  </div>
+  <div class="nav-actions">
+    <button class="btn small" onclick="recruiterMode()">Recruiter View</button>
+    <button class="btn primary small" onclick="openDemo()">Launch Demo ↗</button>
+  </div>
+</nav>
+
+<main id="top">
+<section class="hero">
+  <div>
+    <div class="eyebrow"><i class="dot"></i> Customer-obsessed support infrastructure</div>
+    <h1><span>Support,</span><br>re-engineered.</h1>
+    <p class="lead">AegisDesk is a secure, accessible support console designed around the agent's decisions — not the complexity of the system behind them.</p>
+    <div class="hero-buttons">
+      <button class="btn primary" onclick="openDemo()">Launch Live Demo ↗</button>
+      <a class="btn" href="#workflow">Explore the thinking ↓</a>
+    </div>
+    <div class="hero-metrics">
+      <div><strong>−55%</strong><small>handling time</small></div>
+      <div><strong>90%</strong><small>CSAT</small></div>
+      <div><strong>96</strong><small>Lighthouse</small></div>
+      <div><strong>95%</strong><small>test coverage</small></div>
+    </div>
+  </div>
+  <div class="scene">
+    <div class="orbit o1"><i class="orb"></i></div><div class="orbit o2"><i class="orb"></i></div><div class="orbit o3"><i class="orb"></i></div>
+    <div class="console">
+      <div class="scan"></div>
+      <div class="topbar"><div class="win"><i></i><i></i><i></i></div><span>AEGISDESK / SUPPORT CONSOLE</span><span>● LIVE</span></div>
+      <div class="console-body">
+        <div class="side"><div class="active">Inbox <b>24</b></div><div>Assigned</div><div>Mentions</div><div>Customers</div><div>Reports</div><div>Settings</div></div>
+        <div class="conv"><div class="conv-head"><b>Priority conversations</b><span>Updated now</span></div>
+          <div class="ticket"><b>Sarah Mitchell</b><p>“I was charged twice for the same order...”</p><span class="tag">HIGH PRIORITY</span></div>
+          <div class="ticket"><b>David Chen</b><p>Login issue after password reset</p><span class="tag">SLA SAFE</span></div>
+          <div class="ticket"><b>Acme Workspace</b><p>Need help updating billing contact</p><span class="tag">NORMAL</span></div>
+        </div>
+        <div class="insight"><h4>AI decision layer</h4><span class="mini">CONFIDENCE</span><div class="score">94%</div><div class="bar"><i></i></div><span class="mini">SENTIMENT</span><div style="margin:5px 0 18px;color:var(--amber);font-size:11px">Frustrated</div><span class="mini">SLA RISK</span><div style="margin-top:5px;color:var(--green);font-size:11px">Low</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section reveal" id="problem">
+  <div class="section-head"><span class="kicker">01 / The problem</span><h2>Less navigation.<br>More human attention.</h2><p>Support agents shouldn't have to think about the interface while helping the customer. AegisDesk brings context, decisions, security and actions into one focused workspace.</p></div>
+  <div class="grid">
+    <div class="metric"><strong>12→4</strong><span>workflow steps</span></div>
+    <div class="metric"><strong>18→8</strong><span>minutes / ticket</span></div>
+    <div class="metric"><strong>74→90%</strong><span>CSAT</span></div>
+    <div class="metric"><strong>500+</strong><span>support agents</span></div>
+  </div>
+</section>
+
+<section class="section reveal" id="workflow">
+  <div class="section-head"><span class="kicker">02 / Design thinking</span><h2>Turn twelve decisions<br>into four.</h2><p>The product architecture follows the user's mental model: understand the issue, make a decision, respond clearly, resolve confidently.</p></div>
+  <div class="panel workflow">
+    <div class="workflow-side">
+      <h3>Before → After</h3><p>Move through the old workflow, then collapse it into a focused four-step experience.</p>
+      <div class="step-list" id="steps">
+        <div class="step active"><span class="num">01</span><div><b>Understand</b><small>Customer + context</small></div></div>
+        <div class="step"><span class="num">02</span><div><b>Decide</b><small>Intent + priority + SLA</small></div></div>
+        <div class="step"><span class="num">03</span><div><b>Respond</b><small>Clear, contextual action</small></div></div>
+        <div class="step"><span class="num">04</span><div><b>Resolve</b><small>Close + audit + learn</small></div></div>
+      </div>
+      <button class="btn primary" style="margin-top:22px" onclick="animateWorkflow()">Simplify workflow ↻</button>
+    </div>
+    <div class="workflow-view">
+      <div class="node-ring" id="nodeRing">
+        <div class="node">CUSTOMER CONTEXT</div><div class="node">INTENT + SLA</div><div class="node">RESPONSE</div><div class="node">RESOLUTION</div>
+        <div class="node-core">12 STEPS<br><span style="color:var(--cyan)">→ 4 DECISIONS</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section reveal" id="demo">
+  <div class="section-head"><span class="kicker">03 / Product experience</span><h2>A support console<br>you can actually use.</h2><p>Click through a simulated customer issue. The interface responds like a real product: context is surfaced, risk is assessed, and an action creates an auditable resolution.</p></div>
+  <div class="panel demo-wrap">
+    <div class="demo-toolbar"><div class="status"><i class="dot"></i> AegisDesk production simulation</div><button class="btn small primary" onclick="openDemo()">Open immersive demo ↗</button></div>
+    <div class="demo-app">
+      <aside class="demo-sidebar"><h4>Workspace</h4><div class="inbox active">Inbox <span class="badge">24</span></div><div class="inbox">My queue <span>7</span></div><div class="inbox">Mentions <span>3</span></div><h4 style="margin-top:30px">Views</h4><div class="inbox">High priority</div><div class="inbox">SLA risk</div><div class="inbox">Unassigned</div></aside>
+      <div class="demo-main">
+        <div class="customer"><div class="avatar">SM</div><div><b>Sarah Mitchell</b><br><small>Customer since 2024 · Premium</small></div><span class="tag" style="margin-left:auto">HIGH PRIORITY</span></div>
+        <div class="chat" id="chat">
+          <div class="bubble">I was charged twice for the same order. Can you check what happened?</div>
+          <div class="bubble me">Hi Sarah — I’m checking the transaction history and will take care of this for you.</div>
+          <div class="ai-card"><b>✦ AegisDesk recommendation</b><div class="ai-grid"><div class="ai-item"><small>Intent</small><strong>Duplicate payment</strong></div><div class="ai-item"><small>Confidence</small><strong>94%</strong></div><div class="ai-item"><small>Sentiment</small><strong style="color:var(--amber)">Frustrated</strong></div><div class="ai-item"><small>SLA risk</small><strong style="color:var(--green)">Low</strong></div></div></div>
+          <div class="actions"><button class="btn small primary" onclick="resolveTicket()">Resolve issue</button><button class="btn small" onclick="toast('Escalated to Billing team')">Escalate</button><button class="btn small" onclick="toast('Internal note added to timeline')">Add note</button></div>
+        </div>
+      </div>
+      <aside class="demo-right"><h4>Decision context</h4><div class="risk"><small class="mini">CUSTOMER HEALTH</small><br><strong>92</strong><span style="color:var(--green);font-size:10px"> / 100</span></div><div class="risk"><small class="mini">SLA</small><br><strong style="font-size:17px">18 min</strong><br><span class="ok">On track</span></div><div class="timeline"><div>Customer identified</div><div>Payment intent detected</div><div>Permission verified</div><div>Resolution recommended</div></div><div class="demo-note">Every meaningful action can become an auditable event, without adding friction to the agent's workflow.</div></aside>
+    </div>
+  </div>
+</section>
+
+<section class="section reveal" id="security">
+  <div class="section-head"><span class="kicker">04 / Secure UX</span><h2>Security that stays<br>out of the way.</h2><p>Authentication, authorization and auditability are built into the workflow instead of becoming another obstacle for the support agent.</p></div>
+  <div class="security">
+    <div class="panel security-card"><div class="kicker">Privacy-first interaction</div><div class="shield"></div><p style="text-align:center">JWT / OAuth2 · RBAC · Audit Trails · OWASP-aligned secure coding</p></div>
+    <div class="panel security-card"><div class="kicker">Try a restricted action</div><h3 style="font-size:28px">Export customer data</h3><p>The current support role is read-only. Click to see how AegisDesk prevents unsafe actions while keeping the agent informed.</p><button class="btn" onclick="securityCheck()">Attempt restricted action</button><div class="security-list" style="margin-top:20px"><div class="sec-row"><span>Identity verified</span><span class="ok">✓ PASS</span></div><div class="sec-row"><span>Role permission</span><span id="permission" class="ok">✓ PASS</span></div><div class="sec-row"><span>Audit event</span><span id="audit" class="ok">✓ READY</span></div></div></div>
+  </div>
+</section>
+
+<section class="section reveal">
+  <div class="section-head"><span class="kicker">05 / Accessibility</span><h2>Inclusive by default.</h2><p>WCAG 2.1 AA principles are treated as product requirements, not a final checklist.</p></div>
+  <div class="panel" style="padding:35px">
+    <div class="dual">
+      <div><div class="number" style="font-size:90px;font-weight:900">100<span style="font-size:35px">/100</span></div><div style="color:var(--green);font-weight:700">Accessibility score</div><div class="flowline"><i style="width:100%"></i></div></div>
+      <div class="security-list"><div class="sec-row"><span>Keyboard navigation</span><span class="ok">✓</span></div><div class="sec-row"><span>Focus visibility</span><span class="ok">✓</span></div><div class="sec-row"><span>Semantic controls</span><span class="ok">✓</span></div><div class="sec-row"><span>Contrast & readable states</span><span class="ok">✓</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section reveal">
+  <div class="section-head"><span class="kicker">06 / Performance</span><h2>Make the experience<br>feel instant.</h2><p>Performance improvements are shown as outcomes: less waiting, less cognitive friction and a faster path to the next decision.</p></div>
+  <div class="panel dual" id="perf">
+    <div class="compare"><h3>Before</h3><div class="number">61</div><div style="color:#7e8da1">Lighthouse</div><div class="flowline"><i style="width:61%"></i></div><p>Heavy interaction path · higher TTI · more friction</p></div>
+    <div class="compare after"><h3>After</h3><div class="number" id="lh">96</div><div style="color:var(--cyan)">Lighthouse</div><div class="flowline"><i style="width:96%"></i></div><p><b>TTI −48%</b> · accessibility 100/100 · optimized UI delivery</p></div>
+  </div>
+</section>
+
+<section class="section reveal" id="architecture">
+  <div class="section-head"><span class="kicker">07 / Under the interface</span><h2>A system designed<br>around the user.</h2><p>Hovering architecture nodes explains the engineering in plain language while the animated graph communicates how the pieces work together.</p></div>
+  <div class="panel arch">
+    <div class="arch-canvas">
+      <div class="arch-core">AEGISDESK<br><span style="color:var(--cyan);font-size:9px">CUSTOMER SUPPORT CORE</span></div>
+      <div class="arch-node a1"><b>React + TS</b><small>Fast interface</small></div>
+      <div class="arch-node a2"><b>Auth</b><small>JWT / OAuth2</small></div>
+      <div class="arch-node a3"><b>RBAC</b><small>Permission control</small></div>
+      <div class="arch-node a4"><b>Audit</b><small>Traceable actions</small></div>
+      <div class="arch-node a5"><b>Testing</b><small>Jest / RTL / Cypress</small></div>
+      <div class="arch-node a6"><b>Telemetry</b><small>OpenTelemetry / Grafana</small></div>
+      <div class="line l1"></div><div class="line l2"></div><div class="line l3"></div><div class="line l4"></div><div class="line l5"></div><div class="line l6"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section reveal">
+  <div class="section-head"><span class="kicker">08 / Production confidence</span><h2>Observe. Test. Improve.</h2><p>Production debugging and automated validation were treated as part of the product, not as post-launch cleanup.</p></div>
+  <div class="testing">
+    <div class="panel testbox"><div class="kicker">Automated quality</div><div class="coverage"><span>95%</span></div><div class="test-row"><span>Jest</span><span>PASS</span></div><div class="test-row"><span>React Testing Library</span><span>PASS</span></div><div class="test-row"><span>Cypress</span><span>PASS</span></div></div>
+    <div class="panel testbox"><div class="kicker">Live observability</div><div class="metrics-live" style="grid-template-columns:1fr">
+      <div class="live-card"><h4>MTTR</h4><div class="live-value">22 min</div><div class="flowline"><i style="width:51%"></i></div><small style="color:#708095">45 → 22 minutes</small></div>
+      <div class="live-card"><h4>UI defects</h4><div class="live-value">−35%</div><div class="flowline"><i style="width:65%"></i></div><small style="color:#708095">Production quality signal</small></div>
+      <div class="live-card"><h4>Telemetry</h4><div class="live-value" style="color:var(--green)">LIVE</div><small style="color:#708095">OpenTelemetry → Grafana</small></div>
+    </div></div>
+  </div>
+</section>
+
+<section class="section reveal" id="impact">
+  <div class="section-head"><span class="kicker">09 / Impact</span><h2>Numbers that tell<br>the product story.</h2></div>
+  <div class="metrics-live">
+    <div class="live-card"><h4>Handling time</h4><div class="live-value">−55%</div><div class="flowline"><i style="width:55%"></i></div><small style="color:#708095">18 min → 8 min</small></div>
+    <div class="live-card"><h4>Customer satisfaction</h4><div class="live-value">+22%</div><div class="flowline"><i style="width:90%"></i></div><small style="color:#708095">74% → 90% CSAT</small></div>
+    <div class="live-card"><h4>Security posture</h4><div class="live-value">−40%</div><div class="flowline"><i style="width:60%"></i></div><small style="color:#708095">Reported vulnerabilities</small></div>
+    <div class="live-card"><h4>Delivery</h4><div class="live-value">15+</div><div class="flowline"><i style="width:86%"></i></div><small style="color:#708095">Customer-facing features</small></div>
+    <div class="live-card"><h4>Team</h4><div class="live-value">2 + 1</div><div class="flowline"><i style="width:70%"></i></div><small style="color:#708095">Designers + Product</small></div>
+    <div class="live-card"><h4>Delivery cadence</h4><div class="live-value">3</div><div class="flowline"><i style="width:75%"></i></div><small style="color:#708095">Agile sprints</small></div>
+  </div>
+</section>
+
+<section class="section reveal">
+  <div class="recruiter">
+    <span class="kicker">Recruiter view</span>
+    <h2 style="margin-bottom:10px">What this project proves.</h2>
+    <p>One screen. The entire story.</p>
+    <div class="recruiter-grid">
+      <div class="r-item"><b>Product thinking</b><p>Reduced a complex 12-step support workflow to 4 focused decisions.</p></div>
+      <div class="r-item"><b>Frontend engineering</b><p>React + TypeScript interface architecture built around real support workflows.</p></div>
+      <div class="r-item"><b>Secure UX</b><p>JWT/OAuth2, RBAC, audit trails and OWASP-aligned practices.</p></div>
+      <div class="r-item"><b>Performance</b><p>Lighthouse 61 → 96 and TTI reduced by 48%.</p></div>
+      <div class="r-item"><b>Accessibility</b><p>WCAG 2.1 AA-oriented UI with 100/100 accessibility.</p></div>
+      <div class="r-item"><b>Delivery</b><p>15+ customer-facing features with 2 designers and 1 PM across 3 sprints.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div><div class="footer-logo">AEGISDESK</div><div class="footer-note">Customer-first. Secure by design.</div></div>
+  <div class="footer-right">React · TypeScript · Tailwind · ShadCN<br>JWT · OAuth2 · RBAC · OpenTelemetry · Grafana<br>Jest · RTL · Cypress · GitHub Actions</div>
+</footer>
+
+<div class="modal" id="modal">
+  <div class="modal-shell">
+    <div class="modal-head"><div class="status"><i class="dot"></i><b>AEGISDESK LIVE ENVIRONMENT</b><span style="margin-left:10px">Customer support simulation</span></div><button class="close" onclick="closeDemo()">×</button></div>
+    <div class="demo-full">
+      <div class="demo-app" style="height:100%;min-height:680px">
+        <aside class="demo-sidebar"><h4>Workspace</h4><div class="inbox active">Inbox <span class="badge">24</span></div><div class="inbox">My queue <span>7</span></div><div class="inbox">Mentions <span>3</span></div><h4 style="margin-top:30px">Queues</h4><div class="inbox">Billing</div><div class="inbox">Account</div><div class="inbox">Priority</div></aside>
+        <div class="demo-main">
+          <div class="customer"><div class="avatar">SM</div><div><b>Sarah Mitchell</b><br><small>Premium customer · Order #84291</small></div><span class="tag" style="margin-left:auto">LIVE</span></div>
+          <div class="chat">
+            <div class="bubble">I was charged twice for the same order. Can you check what happened?</div>
+            <div class="bubble me">Absolutely. I can see the order context and I’m checking the payment events now.</div>
+            <div class="ai-card" id="liveAi"><b>✦ Decision assistant</b><div class="ai-grid"><div class="ai-item"><small>Intent</small><strong>Duplicate payment</strong></div><div class="ai-item"><small>Confidence</small><strong>94%</strong></div><div class="ai-item"><small>Sentiment</small><strong style="color:var(--amber)">Frustrated</strong></div><div class="ai-item"><small>Suggested action</small><strong>Review transaction</strong></div></div></div>
+            <div class="actions"><button class="btn primary" onclick="resolveTicket(true)">✓ Resolve issue</button><button class="btn" onclick="toast('Escalation sent to Billing · SLA preserved')">Escalate</button><button class="btn" onclick="toast('Internal note created · visible to team')">Add internal note</button></div>
+            <div class="panel" style="margin-top:20px;padding:20px;background:rgba(255,255,255,.02)"><div class="kicker">Live workflow</div><div id="liveFlow" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:13px"><span class="btn small">01 Understand ✓</span><span class="btn small">02 Decide ✓</span><span class="btn small">03 Respond ✓</span><span class="btn small">04 Resolve →</span></div></div>
+          </div>
+        </div>
+        <aside class="demo-right" style="display:block"><h4>Customer context</h4><div class="risk"><small class="mini">CUSTOMER HEALTH</small><br><strong>92</strong><span style="color:var(--green);font-size:10px"> / 100</span></div><div class="risk"><small class="mini">ORDER</small><br><strong style="font-size:16px">#84291</strong><br><span class="ok">$149.00 · Payment duplicated</span></div><div class="risk"><small class="mini">SECURITY</small><br><strong style="font-size:15px;color:var(--green)">VERIFIED</strong><br><span class="mini">Role: Billing Agent</span></div><div class="timeline"><div>Customer authenticated</div><div>Order context loaded</div><div>Intent detected</div><div>Permission verified</div><div>Action awaiting approval</div></div></aside>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const modal=$('#modal');
+function openDemo(){modal.classList.add('open');document.body.style.overflow='hidden'}
+function closeDemo(){modal.classList.remove('open');document.body.style.overflow=''}
+modal.addEventListener('click',e=>{if(e.target===modal)closeDemo()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDemo()});
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600)}
+function resolveTicket(full=false){
+  const ai=full?document.querySelector('#liveAi'):document.querySelector('#chat .ai-card');
+  if(ai){ai.style.borderColor='rgba(111,243,173,.55)';ai.innerHTML='<b style="color:var(--green)">✓ Resolution approved</b><p style="font-size:11px;color:#91a1b3;margin:9px 0 0">Duplicate transaction identified. Refund workflow initiated. Customer notification queued. Audit event recorded.</p>'}
+  if(full){const f=$('#liveFlow');f.innerHTML='<span class="btn small">01 Understand ✓</span><span class="btn small">02 Decide ✓</span><span class="btn small">03 Respond ✓</span><span class="btn small primary">04 Resolved ✓</span>'}
+  toast('Issue resolved · audit event created · customer notified')
+}
+function securityCheck(){
+  $('#permission').textContent='✕ BLOCKED';$('#permission').className='block';$('#audit').textContent='✓ RECORDED';$('#audit').className='ok';
+  toast('Restricted action blocked by RBAC · audit event recorded')
+}
+function animateWorkflow(){
+  const steps=[...document.querySelectorAll('#steps .step')];
+  steps.forEach((s,i)=>setTimeout(()=>{steps.forEach(x=>x.classList.remove('active'));s.classList.add('active')},i*500));
+  $('#nodeRing').style.animationDuration='3s';setTimeout(()=>$('#nodeRing').style.animationDuration='18s',2200);
+  toast('Workflow simplified: 12 steps → 4 decisions')
+}
+function recruiterMode(){
+  document.querySelector('.recruiter').scrollIntoView({behavior:'smooth',block:'center'});
+  setTimeout(()=>toast('Recruiter view: product thinking · engineering · security · impact'),700)
+}
+const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(x=>observer.observe(x));
+const counters=document.querySelectorAll('.metric strong');
+const counterObs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.style.transform='translateY(0)';e.target.style.transition='.6s';counterObs.unobserve(e.target)}}),{threshold:.5});
+counters.forEach(x=>counterObs.observe(x));
+</script>
+</body>
+</html>
