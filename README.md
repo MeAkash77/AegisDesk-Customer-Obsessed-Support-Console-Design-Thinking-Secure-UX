@@ -3,7 +3,7 @@
 
 ___
 
-# Chatwoot
+# AegisDesk
 
 The modern customer support platform, an open-source alternative to Intercom, Zendesk, Salesforce Service Cloud etc.
 
